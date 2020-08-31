@@ -1,0 +1,22 @@
+<h1>Details of the post</h1>
+<div>
+    {% if post %}
+        <h3>Post Name:</h3>  
+        <div>{{post.name}}</div>  
+        <h3>Author Name:</h3>  
+        <div>{{post.author}}</div>  
+        <h3>Post Details:</h3> 
+        <div>{{post.detail}}</div>  
+        <h3>Comments:</h3> 
+        {% for singlecomment in comment %}  
+            <div>{{singlecomment.commenter}} : {{singlecomment.comment_detail}}</div>  
+        {% endfor %} 
+        <form method="post">    
+            {% csrf_token %}
+            <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br/>
+            <button type="submit">send</button>
+        </form>     
+    {% else %}
+        There is no post with this ID.
+    {% endif %}
+</div>
