@@ -1,6 +1,7 @@
 <h1>post list</h1>
+<a href={% url 'create' %}>Add new post</a>
 <div>
     {% for post in posts %}  
-    <div>{{post.id}} <a href={% url 'detail' id=post.id %}>{{post.name}}</a></div>  
+    <div>{{post.id}} <a href={% url 'detail' id=post.id %}>{{post.title}}</a></div><a href={% url 'delete' id=post.id %}>delete</a>
     {% endfor %} 
 </div>

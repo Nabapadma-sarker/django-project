@@ -1,0 +1,8 @@
+<form method="post">    
+    {% csrf_token %}
+    <h1>Post Name</h1>
+    <input type="text"  name="post_title">
+    <h1>Post Details</h1>
+    <textarea id="post_detail" name="post_detail" rows="4" cols="50"></textarea><br/>
+    <button type="submit">Add</button>
+</form>  
