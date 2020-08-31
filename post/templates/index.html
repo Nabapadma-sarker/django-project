@@ -1,0 +1,6 @@
+<h1>post list</h1>
+<div>
+    {% for post in posts %}  
+    <div>{{post.id}} <a href={% url 'detail' id=post.id %}>{{post.name}}</a></div>  
+    {% endfor %} 
+</div>
