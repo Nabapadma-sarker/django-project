@@ -25,9 +25,9 @@ validation used.
 
 ## docker and docker-compose
 for development environment 3 servies have been used.
-    1. postgres
-    2. django web server
-    3. pgadmin4
+    - postgres
+    - django web server
+    - pgadmin4
 
 for runnig the application use command:
           ``` docker-compose -f docker-compose.yml up -d ```
