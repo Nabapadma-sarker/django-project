@@ -25,6 +25,7 @@ validation used.
 
 ## docker and docker-compose
 for development environment 3 servies have been used.
+
     - postgres
     - django web server
     - pgadmin4
