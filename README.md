@@ -9,6 +9,8 @@ using pyhton framework django and postgresql
 sass have been added for styling.
 also bootstrap have been added.
 
+for creating new design ```npm i``` command will install bootstrap and sass.
+then ```npm run sass``` will runtime build the sass when you make change on style.scss.
 
 ### All Pages 
 #### Top Page 
@@ -20,3 +22,12 @@ also bootstrap have been added.
 
 creating new post and commenting on the post as a login user. default form 
 validation used.
+
+## docker and docker-compose
+for development environment 3 servies have been used.
+    1. postgres
+    2. django web server
+    3. pgadmin4
+
+for runnig the application use command:
+          ``` docker-compose -f docker-compose.yml up -d ```
