@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>Django Blog</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">  
+    <link rel="shortcut icon" href="favicon.ico"> 
+
+    <!-- Theme CSS -->  
+    <link rel="stylesheet" type="text/css" href="{% static 'post/css/style.css' %}">
+
+</head> 
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="hero-image">
+                <div class="hero-text">
+                    <h1 style="font-size:50px">Blog list</h1>
+                    <a class="btn btn-primary mt-2" href={% url 'create' %} role="button">Add new post</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2">
+        <div class="row">
+          <div class="col col-sm-6">
+            <h2>Update post</h2>
+          </div>
+          <div class="col col-sm-6 text-right">
+            <a class="btn btn-primary mt-1" href={% url 'index' %} role="button">Blog list</a>
+          </div>
+        </div>
+        <div class="jumbotron">
+            <form method="post">    
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="post_title" class="form-label">Post Name</label>
+                    <input type="text"  name="post_title" class="form-control" id="post_title" value="{{ post.title }}">
+                </div>
+                <div class="mb-3">
+                    <label for="post_detail" class="form-label">Post Details</label>
+                    <textarea id="post_detail" class="form-control" name="post_detail" rows="4" cols="50" id="post_detail">{{post.detail}}</textarea>
+                </div>
+                <input type="hidden"  name="post_id" class="form-control" id="post_id" value="{{ post.id }}">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>  
+        </div>
+    </div>
+</body>
+</html> 

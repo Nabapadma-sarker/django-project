@@ -10,14 +10,32 @@ def index(request):
     context = {
         'posts': Post.objects.all()
         }
-    return render(request, 'index.html', context)
+    return render(request, 'post/index.html', context)
 
 def create(request):
     if request.method == 'POST':
-        comment = Post(title= request.POST['post_title'], author= request.user.username, detail= request.POST['post_detail'])
-        comment.save()
+        post = Post(title= request.POST['post_title'], author= request.user.username, detail= request.POST['post_detail'])
+        post.save()
         return redirect('/post/')
-    return render(request, 'create.html')
+    return render(request, 'post/create.html')
+
+def edit(request, id):
+    if request.method == 'POST':
+        post = Post.objects.get(id=request.POST['post_id'])
+        post.title= request.POST['post_title']
+        post.author= request.user.username
+        post.detail= request.POST['post_detail']
+        post.save() # this will update only
+        return redirect('/post/')
+    
+    
+    try:
+        context = {
+            'post': Post.objects.get(id=id)
+        }
+    except ObjectDoesNotExist:
+        posts = None
+    return render(request, 'post/edit.html', context)
 
 def formcreate(request):
     if request.method == 'POST':  
@@ -41,7 +59,7 @@ def formcreate(request):
             # was inserted successfully 
             return redirect('/post/') 
     form = CreateForm()
-    return render(request, 'formcreate.html', {'form':form})
+    return render(request, 'post/formcreate.html', {'form':form})
 
 def detail(request, id):
     if request.method == 'POST':
@@ -60,7 +78,7 @@ def detail(request, id):
         'post': posts,
         'comment': comments
     }
-    return render(request, 'detail.html', context)
+    return render(request, 'post/detail.html', context)
 
 def delete(request, id):
     try:
@@ -69,4 +87,4 @@ def delete(request, id):
         return redirect('/post/')
     except ObjectDoesNotExist:
         posts = None
-        return render(request, 'error.html')
+        return render(request, 'post/error.html')

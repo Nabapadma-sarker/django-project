@@ -1,0 +1,24 @@
+{
+  "name": "django-project",
+  "version": "1.0.0",
+  "description": "using pyhton framework django and postgresql",
+  "main": "index.js",
+  "scripts": {
+    "sass": "$(npm bin)/sass --watch post/static/post/scss/style.scss post/static/post/css/style.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nabapadma-sarker/django-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nabapadma-sarker/django-project/issues"
+  },
+  "homepage": "https://github.com/Nabapadma-sarker/django-project#readme",
+  "dependencies": {
+    "bootstrap": "^4.6.0",
+    "sass": "^1.32.7"
+  }
+}
