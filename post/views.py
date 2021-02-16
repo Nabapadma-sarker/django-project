@@ -7,6 +7,16 @@ from .forms import CreateForm
 # Create your views here.
 
 def index(request):
+    try:
+        posts = Post.objects.get(author= request.user.username)
+        context = {
+            'posts': posts
+            }
+        return render(request, 'post/index.html', context)
+    except Post.DoesNotExist:
+        return render(request, 'post/index.html', {'posts': None})
+
+def all(request):
     context = {
         'posts': Post.objects.all()
         }
@@ -34,7 +44,9 @@ def edit(request, id):
             'post': Post.objects.get(id=id)
         }
     except ObjectDoesNotExist:
-        posts = None
+        context = {
+         'posts':None
+        }
     return render(request, 'post/edit.html', context)
 
 def formcreate(request):

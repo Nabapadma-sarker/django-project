@@ -1,39 +1,16 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en"> 
-<head>
-    <title>Django Blog</title>
-    
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blog Template">  
-    <link rel="shortcut icon" href="favicon.ico"> 
+{% extends "base/base.html" %}
 
-    <!-- Theme CSS -->  
-    <link rel="stylesheet" type="text/css" href="{% static 'post/css/style.css' %}">
+{% block title %} Error Page {% endblock %}
+{% load crispy_forms_tags %}
+{% block topLeft %}
+    <h1>Details of the post</h1>
+{% endblock %}
+{% block topRight %}
 
-</head> 
+{% endblock %}
 
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="banner">
-                <div class="banner-text">
-                    <h1 style="font-size:50px">Blogs</h1>
-                    <a class="btn btn-primary mt-2" href={% url 'create' %} role="button">Add new post</a>
-                </div>
-            </div>
-        </div>
+{% block mainContent %}
+    <div class="jumbotron">    
+        <h4>there have no posts</h4>
     </div>
-    <div class="container mt-2">
-        <h1>Details of the post</h1>
-
-        <div class="jumbotron">    
-            <h1>there have error</h1>
-        </div>
-
-    </div>
-</body>
-</html> 
+{% endblock %}

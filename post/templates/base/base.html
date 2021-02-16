@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>{% block title %}Django Blog{% endblock %}</title>
+    
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog Template">  
+    <link rel="shortcut icon" href="favicon.ico"> 
+
+    <!-- Theme CSS -->  
+    <link rel="stylesheet" type="text/css" href="{% static 'post/css/style.css' %}">
+
+</head> 
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="banner">
+                <div class="banner-text">
+                    <h1 style="font-size:50px">Blogs</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2">
+        <div class="row">
+          <div class="col col-sm-6">
+            <h1>{% block topLeft %}Blog list{% endblock %}</h1>
+          </div>
+          <div class="col col-sm-6 text-right">
+            {% block topRight %}<a class="btn btn-primary mt-2" href={% url 'create' %} role="button">Add new post</a>{% endblock %}
+          </div>
+        </div>
+        {% block mainContent %}
+        <div class="list-group">
+            {% for post in posts %} 
+            <a href={% url 'detail' id=post.id %} class="list-group-item list-group-item-action" aria-current="true">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{post.title}}</h5>
+                <small>{{post.created_at|date:"M d, Y"}}</small>
+              </div>
+              <p class="mb-1">{{post.detail|truncatechars:50}}</p>
+              <small>{{post.author}}</small>
+            </a>
+            {% endfor %} 
+        </div>
+        {% endblock %}
+    </div>
+</body>
+</html> 

@@ -1,69 +1,39 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en"> 
-<head>
-    <title>Django Blog</title>
-    
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Blog Template">  
-    <link rel="shortcut icon" href="favicon.ico"> 
+{% extends "base/base.html" %}
 
-    <!-- Theme CSS -->  
-    <link rel="stylesheet" type="text/css" href="{% static 'post/css/style.css' %}">
+{% block title %} Details of the post {% endblock %}
+{% load crispy_forms_tags %}
+{% block topLeft %}
+    <h1>Details of the post</h1>
+{% endblock %}
+{% block topRight %}
+    <a class="btn btn-primary mt-2" href={% url 'index' %} role="button">Blog list</a>
+    <a class="btn btn-primary ml-1 mt-2" href={% url 'edit' id=post.id %} role="button">Edit post</a>
+    <a class="btn btn-primary ml-1 mt-2" href={% url 'delete' id=post.id %} role="button">delete</a>
+{% endblock %}
 
-</head> 
+{% block mainContent %}
+    <div class="jumbotron">    
+        <div class="blog-post">            
+            {% if post %}
+            <h2 class="blog-post-title">{{post.title}}</h2>
+            <p class="blog-post-meta">{{post.created_at|date:"M d, Y"}} by <a href="#">{{post.author}}</a></p>
 
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="banner">
-                <div class="banner-text">
-                    <h1 style="font-size:50px">Blogs</h1>
-                    <a class="btn btn-primary mt-2" href={% url 'create' %} role="button">Add new post</a>
+            <p>{{post.detail}}</p>  
+            <b>Comments:</b>
+            {% for singlecomment in comment %}  
+                <p>{{singlecomment.commenter}} : {{singlecomment.comment_detail}}</p>  
+            {% endfor %} 
+            <form method="post">    
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Add Comment</label>
+                    <textarea id="comment" class="form-control" name="comment" rows="4" cols="50" id="post_detail"></textarea>
                 </div>
-            </div>
-        </div>
+                <button type="submit" class="btn btn-primary">send</button>
+            </form>     
+            {% else %}
+                <p>There is no post with this ID.</p>
+            {% endif %}
+        </div> 
     </div>
-    <div class="container mt-2">
-        <div class="row">
-          <div class="col col-sm-6">
-            <h1>Details of the post</h1>
-          </div>
-          <div class="col col-sm-6 text-right">
-            <a class="btn btn-primary mt-2" href={% url 'index' %} role="button">Blog list</a>
-            <a class="btn btn-primary ml-1 mt-2" href={% url 'edit' id=post.id %} role="button">Edit post</a>
-            <a class="btn btn-primary ml-1 mt-2" href={% url 'delete' id=post.id %} role="button">delete</a>
-          </div>
-        </div>
-
-        <div class="jumbotron">    
-            <div class="blog-post">            
-                {% if post %}
-                <h2 class="blog-post-title">{{post.title}}</h2>
-                <p class="blog-post-meta">{{post.created_at|date:"M d, Y"}} by <a href="#">{{post.author}}</a></p>
-
-                <p>{{post.detail}}</p>  
-                <b>Comments:</b>
-                {% for singlecomment in comment %}  
-                    <p>{{singlecomment.commenter}} : {{singlecomment.comment_detail}}</p>  
-                {% endfor %} 
-                <form method="post">    
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="comment" class="form-label">Add Comment</label>
-                        <textarea id="comment" class="form-control" name="comment" rows="4" cols="50" id="post_detail"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">send</button>
-                </form>     
-                {% else %}
-                    <p>There is no post with this ID.</p>
-                {% endif %}
-            </div> 
-        </div>
-
-    </div>
-</body>
-</html> 
+{% endblock %}
