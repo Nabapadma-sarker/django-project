@@ -36,18 +36,6 @@
           </div>
         </div>
         {% block mainContent %}
-        <div class="list-group">
-            {% for post in posts %} 
-            <a href={% url 'detail' id=post.id %} class="list-group-item list-group-item-action" aria-current="true">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">{{post.title}}</h5>
-                <small>{{post.created_at|date:"M d, Y"}}</small>
-              </div>
-              <p class="mb-1">{{post.detail|truncatechars:50}}</p>
-              <small>{{post.author}}</small>
-            </a>
-            {% endfor %} 
-        </div>
         {% endblock %}
     </div>
 </body>

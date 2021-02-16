@@ -4,17 +4,19 @@ from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 from .models import Post,Comment
 from .forms import CreateForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='login')
 def index(request):
     try:
-        posts = Post.objects.get(author= request.user.username)
+        posts = Post.objects.filter(author= request.user.username)
         context = {
             'posts': posts
             }
         return render(request, 'post/index.html', context)
     except Post.DoesNotExist:
-        return render(request, 'post/index.html', {'posts': None})
+        return render(request, 'post/index.html', {})
 
 def all(request):
     context = {
@@ -22,6 +24,7 @@ def all(request):
         }
     return render(request, 'post/index.html', context)
 
+@login_required(login_url='login')
 def create(request):
     if request.method == 'POST':
         post = Post(title= request.POST['post_title'], author= request.user.username, detail= request.POST['post_detail'])
@@ -29,6 +32,7 @@ def create(request):
         return redirect('/post/')
     return render(request, 'post/create.html')
 
+@login_required(login_url='login')
 def edit(request, id):
     if request.method == 'POST':
         post = Post.objects.get(id=request.POST['post_id'])
@@ -92,6 +96,8 @@ def detail(request, id):
     }
     return render(request, 'post/detail.html', context)
 
+
+@login_required(login_url='login')
 def delete(request, id):
     try:
         posts = Post.objects.get(id=id)

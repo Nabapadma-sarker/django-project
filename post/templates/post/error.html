@@ -6,7 +6,17 @@
     <h1>Details of the post</h1>
 {% endblock %}
 {% block topRight %}
-
+    {% if user.is_authenticated %}
+    <b>Loged in as, {{request.user}}</b>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <a class="btn btn-primary mt-2" href={% url 'home' %} role="button">Home</a>
+    <a class="btn btn-primary mt-2" href={% url 'index' %} role="button">Own Blog list</a>
+    <a class="btn btn-primary mt-2" href={% url 'logout' %} role="button">Logout</a>
+    {% else %}
+    <a class="btn btn-primary mt-2" href={% url 'home' %} role="button">Blog list</a>
+    <a class="btn btn-primary mt-2" href={% url 'login' %} role="button">Login</a>
+    {% endif %}
 {% endblock %}
 
 {% block mainContent %}

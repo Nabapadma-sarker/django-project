@@ -5,8 +5,22 @@
 {% block topLeft %}
   <h1>Blog list</h1>
 {% endblock %}
-{% block topRight %}
+{% block topRight %} 
+  {% if user.is_authenticated %}
+  <b>Loged in as, {{request.user}}</b>
+  {% endif %}
+  {% if user.is_authenticated %}
+  {% if request.path != "/" %}
+  <a class="btn btn-primary mt-2" href={% url 'home' %} role="button">Home</a>
+  {% endif %}
   <a class="btn btn-primary mt-2" href={% url 'create' %} role="button">Add new post</a>
+  <a class="btn btn-primary mt-2" href={% url 'logout' %} role="button">Logout</a>
+  {% else %}
+  {% if request.path != "/" %}
+  <a class="btn btn-primary mt-2" href={% url 'home' %} role="button">Home</a>
+  {% endif %}
+  <a class="btn btn-primary mt-2" href={% url 'login' %} role="button">Login</a>
+  {% endif %}
 {% endblock %}
 
 {% block mainContent %}
