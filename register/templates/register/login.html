@@ -3,7 +3,10 @@
 {% block title %} Login page {% endblock %}
 {% load crispy_forms_tags %}
 {% block topLeft %}Login page{% endblock %}
-{% block topRight %} {% endblock %}
+{% block topRight %}
+    <a class="btn btn-primary mt-2" href={% url 'home' %} role="button">Home</a>
+    <a class="btn btn-primary mt-2" href={% url 'register' %} role="button">Register</a>
+{% endblock %}
 
 {% block mainContent %}
     <form method="POST" class="form-group">
