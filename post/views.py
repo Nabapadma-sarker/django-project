@@ -5,9 +5,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from .models import Post,Comment
 from .forms import CreateForm
 from django.contrib.auth.decorators import login_required
+from register.loged_in_decorator import active_user_required
 # Create your views here.
 
-@login_required(login_url='login')
+@active_user_required
 def index(request):
     try:
         posts = Post.objects.filter(author= request.user.username)
@@ -24,7 +25,7 @@ def all(request):
         }
     return render(request, 'post/index.html', context)
 
-@login_required(login_url='login')
+@active_user_required
 def create(request):
     if request.method == 'POST':
         post = Post(title= request.POST['post_title'], author= request.user.username, detail= request.POST['post_detail'])
@@ -32,7 +33,7 @@ def create(request):
         return redirect('/post/')
     return render(request, 'post/create.html')
 
-@login_required(login_url='login')
+@active_user_required
 def edit(request, id):
     if request.method == 'POST':
         post = Post.objects.get(id=request.POST['post_id'])
@@ -97,7 +98,7 @@ def detail(request, id):
     return render(request, 'post/detail.html', context)
 
 
-@login_required(login_url='login')
+@active_user_required
 def delete(request, id):
     try:
         posts = Post.objects.get(id=id)
