@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from post.urls import urlpatterns
 from post import views as pv
-from register import views as rv
+from register import views as rv, urls as register_url
 urlpatterns = [
     path('', pv.all, name="home"),
     path('admin/', admin.site.urls),
     path('post/', include(urlpatterns)),
     path('register/', rv.register, name="register"),
-    path('login/', rv.user_login, name="login"),
-    path('', include("django.contrib.auth.urls")),
+    path('', include(register_url.urlpatterns)),
+    path('', include("django.contrib.auth.urls"))
 ]

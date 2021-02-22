@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from .forms import RegisterForm, UserLoginForm
+from .forms import RegisterForm
 from django.http import HttpResponse
 from django.contrib.auth.views import LoginView
 
@@ -22,22 +22,4 @@ def register(request):
         
     return render(request, "register/register.html", {"form": form})
 
-
-def user_login(request):
-    if request.user.is_authenticated:
-        return redirect('/')
-    form = UserLoginForm(request.POST)
-    if request.POST:
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                return redirect('/')
-                
-    else:
-        form = UserLoginForm()
-    return render(request, "registration/login.html", {"form": form})
 
