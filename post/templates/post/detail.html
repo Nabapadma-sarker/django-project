@@ -33,6 +33,7 @@
             {% for singlecomment in comment %}  
                 <p>{{singlecomment.commenter}} : {{singlecomment.comment_detail}}</p>  
             {% endfor %} 
+            {% if user.is_authenticated %}
             <form method="post">    
                 {% csrf_token %}
                 <div class="mb-3">
@@ -40,7 +41,8 @@
                     <textarea id="comment" class="form-control" name="comment" rows="4" cols="50" id="post_detail"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">send</button>
-            </form>     
+            </form>
+            {% endif %}     
             {% else %}
                 <p>There is no post with this ID.</p>
             {% endif %}
