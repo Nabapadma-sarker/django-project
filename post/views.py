@@ -81,7 +81,7 @@ def formcreate(request):
 def detail(request, id):
     if request.method == 'POST':
         detailPost = Post.objects.filter(id=id).first()
-        comment = Comment(commenter= detailPost.author, comment_detail=request.POST['comment'], post=detailPost)
+        comment = Comment(commenter=request.user.username, comment_detail=request.POST['comment'], post=detailPost)
         comment.save()
     try:
         posts = Post.objects.get(id=id)
@@ -102,8 +102,13 @@ def detail(request, id):
 def delete(request, id):
     try:
         posts = Post.objects.get(id=id)
-        posts.delete()
-        return redirect('/post/')
+        if posts.author == request.user.username:
+        	posts.delete()
+        	return redirect('/post/')
+	
+        else:
+        	posts = None
+        	return render(request, 'post/error.html')
     except ObjectDoesNotExist:
         posts = None
         return render(request, 'post/error.html')
